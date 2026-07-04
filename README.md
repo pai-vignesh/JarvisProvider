@@ -16,11 +16,11 @@ Jarvis App  ──fetch──▶  Vercel (plugins.json manifest)
 
 | Component | Description |
 |---|---|
-| `plugins/provider-common` | Stable API interfaces & DTOs shared by all plugins |
-| `plugins/<name>-provider` | Individual provider plugin modules |
+| `jarvis-provider/plugins/provider-common` | Stable API interfaces & DTOs shared by all plugins |
+| `jarvis-provider/plugins/<name>-provider` | Individual provider plugin modules |
 | `public/plugins.json` | Master manifest hosted on Vercel |
 | `.github/workflows/publish-plugins.yml` | CI/CD: build → release → manifest update |
-| `scripts/generate-manifest.sh` | Helper script used by the workflow |
+| `jarvis-provider/scripts/generate-manifest.sh` | Helper script used by the workflow |
 
 ---
 
@@ -46,28 +46,29 @@ JarvisProvider/
 ├── .github/
 │   └── workflows/
 │       └── publish-plugins.yml   # Build & release workflow
-├── plugins/
-│   ├── provider-common/          # Shared interfaces/DTOs (stable contract)
-│   │   └── src/main/kotlin/
-│   │       └── com/vigneshpai/jarvis/provider/
-│   │           ├── api/
-│   │           │   ├── Provider.kt
-│   │           │   └── ProviderPlugin.kt
-│   │           └── model/
-│   │               ├── SearchResult.kt
-│   │               ├── MediaDetails.kt
-│   │               ├── StreamLink.kt
-│   │               ├── SubtitleTrack.kt
-│   │               └── PluginMetadata.kt
-│   ├── vaplayer-provider/        # VaPlayer provider plugin
-│   └── hulu-provider/            # Hulu provider plugin
+├── jarvis-provider/
+│   ├── plugins/
+│   │   ├── provider-common/          # Shared interfaces/DTOs (stable contract)
+│   │   │   └── src/main/kotlin/
+│   │   │       └── com/vigneshpai/jarvis/provider/
+│   │   │           ├── api/
+│   │   │           │   ├── Provider.kt
+│   │   │           │   └── ProviderPlugin.kt
+│   │   │           └── model/
+│   │   │               ├── SearchResult.kt
+│   │   │               ├── MediaDetails.kt
+│   │   │               ├── StreamLink.kt
+│   │   │               ├── SubtitleTrack.kt
+│   │   │               └── PluginMetadata.kt
+│   │   ├── vaplayer-provider/        # VaPlayer provider plugin
+│   │   └── hulu-provider/            # Hulu provider plugin
+│   ├── scripts/
+│   │   └── generate-manifest.sh      # Update manifest after a release
+│   ├── build.gradle.kts
+│   ├── settings.gradle.kts
+│   └── gradle.properties
 ├── public/
 │   └── plugins.json              # Manifest served by Vercel
-├── scripts/
-│   └── generate-manifest.sh      # Update manifest after a release
-├── build.gradle.kts
-├── settings.gradle.kts
-├── gradle.properties
 └── README.md
 ```
 
@@ -78,7 +79,7 @@ JarvisProvider/
 ### 1. Create the module directory
 
 ```bash
-mkdir -p plugins/myprovider-provider/src/main/kotlin/com/vigneshpai/jarvis/provider/myprovider
+mkdir -p jarvis-provider/plugins/myprovider-provider/src/main/kotlin/com/vigneshpai/jarvis/provider/myprovider
 ```
 
 ### 2. Add `build.gradle.kts`
@@ -122,7 +123,7 @@ tasks.shadowJar {
 tasks.build { dependsOn(tasks.shadowJar) }
 ```
 
-### 3. Register the module in `settings.gradle.kts`
+### 3. Register the module in `jarvis-provider/settings.gradle.kts`
 
 ```kotlin
 include(":plugins:myprovider-provider")
@@ -165,9 +166,9 @@ Examples: `netflix-v1.0.0`, `hulu-v2.1.3`, `anime-v1.0.0-beta1`
 ### Release steps
 
 ```bash
-# 1. Bump version in plugins/<name>-provider/build.gradle.kts
+# 1. Bump version in jarvis-provider/plugins/<name>-provider/build.gradle.kts
 # 2. Commit the version bump
-git add plugins/<name>-provider/build.gradle.kts
+git add jarvis-provider/plugins/<name>-provider/build.gradle.kts
 git commit -m "chore: bump <name>-provider to v1.2.3"
 
 # 3. Tag & push — GitHub Actions takes care of the rest
@@ -189,14 +190,14 @@ The workflow will:
 ### Build a single plugin
 
 ```bash
-./gradlew :plugins:vaplayer-provider:shadowJar
-# JAR → plugins/vaplayer-provider/build/libs/vaplayer-provider-<version>.jar
+cd jarvis-provider && ./gradlew :plugins:vaplayer-provider:shadowJar
+# JAR → jarvis-provider/plugins/vaplayer-provider/build/libs/vaplayer-provider-<version>.jar
 ```
 
 ### Build all plugins at once
 
 ```bash
-./gradlew buildAllPlugins
+cd jarvis-provider && ./gradlew buildAllPlugins
 ```
 
 ### Test with a local Jarvis build
@@ -204,7 +205,7 @@ The workflow will:
 1. Build the JAR locally.
 2. Copy it to your device or emulator:
    ```bash
-   adb push plugins/vaplayer-provider/build/libs/vaplayer-provider-1.0.0.jar \
+   adb push jarvis-provider/plugins/vaplayer-provider/build/libs/vaplayer-provider-1.0.0.jar \
        /sdcard/Android/data/com.vigneshpai.jarvis/files/plugins/
    ```
 3. In Jarvis, go to **Settings → Plugins → Load from file** and select the JAR.
@@ -212,7 +213,7 @@ The workflow will:
 ### Validate the manifest locally
 
 ```bash
-./scripts/generate-manifest.sh vaplayer 1.0.0 plugins/vaplayer-provider/build/libs/vaplayer-provider-1.0.0.jar
+./jarvis-provider/scripts/generate-manifest.sh vaplayer 1.0.0 jarvis-provider/plugins/vaplayer-provider/build/libs/vaplayer-provider-1.0.0.jar
 cat public/plugins.json
 ```
 
@@ -272,6 +273,6 @@ Jarvis app refuses to load plugins whose `maxApiVersion` is below the app's curr
 ## Contributing
 
 1. Fork this repository.
-2. Add your provider under `plugins/<name>-provider/`.
+2. Add your provider under `jarvis-provider/plugins/<name>-provider/`.
 3. Open a pull request — CI will validate the build.
 4. Once merged, a maintainer tags the release to trigger publishing.

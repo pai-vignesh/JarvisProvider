@@ -26,7 +26,7 @@ jobs:
           echo "provider=$PROVIDER"   >> "$GITHUB_OUTPUT"
           echo "version=$VERSION"     >> "$GITHUB_OUTPUT"
           echo "tag=$TAG"             >> "$GITHUB_OUTPUT"
-          echo "module=plugins/${PROVIDER}-provider" >> "$GITHUB_OUTPUT"
+          echo "module=jarvis-provider/plugins/${PROVIDER}-provider" >> "$GITHUB_OUTPUT"
 
       # ── 2. Checkout ───────────────────────────────────────────────────────
       - name: Checkout repository
@@ -43,12 +43,13 @@ jobs:
           cache: gradle
 
       - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+        run: chmod +x jarvis-provider/gradlew
 
       # ── 4. Build plugin JAR ───────────────────────────────────────────────
       - name: Build ${{ steps.parse.outputs.provider }}-provider
+        working-directory: jarvis-provider
         run: |
-          ./gradlew :${{ steps.parse.outputs.module }}:shadowJar \
+          ./gradlew :plugins:${{ steps.parse.outputs.provider }}-provider:shadowJar \
             -Pjarvis.pluginVersion=${{ steps.parse.outputs.version }}
 
       # ── 5. Locate JAR & compute checksum ─────────────────────────────────
@@ -100,8 +101,8 @@ jobs:
           GITHUB_REPO: ${{ github.repository }}
           RELEASE_TAG: ${{ steps.parse.outputs.tag }}
         run: |
-          chmod +x scripts/generate-manifest.sh
-          ./scripts/generate-manifest.sh \
+          chmod +x jarvis-provider/scripts/generate-manifest.sh
+          ./jarvis-provider/scripts/generate-manifest.sh \
             "${{ steps.parse.outputs.provider }}" \
             "${{ steps.parse.outputs.version }}" \
             "${{ steps.artifact.outputs.jar_path }}"
