@@ -111,7 +111,7 @@
     {
       "server": "VaPlayer",
       "url": "https://streamdata.vaplayer.ru",
-      "enabled": true,
+      "enabled": false,
       "type": "all"
     },
     {
