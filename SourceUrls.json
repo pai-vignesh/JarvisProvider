@@ -92,7 +92,7 @@
     },
     {
       "server": "MoviesDrive",
-      "url": "https://new3.moviesdrives.my",
+      "url": "https://new4.moviesdrives.my",
       "enabled": true,
       "type": "movie"
     },
@@ -107,12 +107,6 @@
       "url": "https://play.xpass.top",
       "enabled": true,
       "type": "movie"
-    },
-    {
-      "server": "VaPlayer",
-      "url": "https://streamdata.vaplayer.ru",
-      "enabled": false,
-      "type": "all"
     },
     {
       "server": "Movies4u",
@@ -205,6 +199,12 @@
       "type": "all"
     },
     {
+      "server": "VaPlayer",
+      "url": "https://streamdata.vaplayer.ru",
+      "enabled": true,
+      "type": "all"
+    },
+    {
       "server": "Xdmovies",
       "url": "https://new.xdmovies.wtf",
       "enabled": true,
@@ -230,7 +230,7 @@
     },
     {
       "server": "RogMovies",
-      "url": "https://rogmovies.work",
+      "url": "https://rogmovies.cv",
       "enabled": true,
       "type": "movie"
     },
@@ -278,7 +278,7 @@
     },
     {
       "server": "BollyflixVIP",
-      "url": "https://bollyflix.med",
+      "url": "https://bollyflix.at",
       "enabled": true,
       "type": "movie"
     },
@@ -302,7 +302,7 @@
     },
     {
       "server": "HdMovie2",
-      "url": "https://hdmovie2a.net",
+      "url": "https://hdmo2.com",
       "enabled": true,
       "type": "movie"
     },
@@ -320,7 +320,7 @@
     },
     {
       "server": "Bollyflix",
-      "url": "https://bollyflix.ski",
+      "url": "https://bollyflix.at",
       "enabled": true,
       "type": "movie"
     },
@@ -386,7 +386,7 @@
     },
     {
       "server": "MultiMovies",
-      "url": "https://multimovies.homes",
+      "url": "https://multimovies.makeup",
       "enabled": true,
       "type": "all"
     },
