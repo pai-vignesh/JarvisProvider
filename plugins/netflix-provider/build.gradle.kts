@@ -10,7 +10,7 @@ plugins {
     alias(libs.plugins.shadow)
 }
 
-version = "1.0.0"
+version = findProperty("jarvis.pluginVersion") as String? ?: "1.0.0"
 
 dependencies {
     // provider-common is a "provided" dependency — the Jarvis runtime supplies it

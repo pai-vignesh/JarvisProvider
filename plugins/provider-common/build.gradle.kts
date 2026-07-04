@@ -9,7 +9,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-version = property("jarvis.targetApiVersion") as String
+version = "1.0.0"
 
 dependencies {
     api(libs.kotlinx.serialization.json)
