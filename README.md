@@ -59,7 +59,7 @@ JarvisProvider/
 │   │               ├── StreamLink.kt
 │   │               ├── SubtitleTrack.kt
 │   │               └── PluginMetadata.kt
-│   ├── netflix-provider/         # Netflix provider plugin
+│   ├── vaplayer-provider/        # VaPlayer provider plugin
 │   └── hulu-provider/            # Hulu provider plugin
 ├── public/
 │   └── plugins.json              # Manifest served by Vercel
@@ -189,8 +189,8 @@ The workflow will:
 ### Build a single plugin
 
 ```bash
-./gradlew :plugins:netflix-provider:shadowJar
-# JAR → plugins/netflix-provider/build/libs/netflix-provider-<version>.jar
+./gradlew :plugins:vaplayer-provider:shadowJar
+# JAR → plugins/vaplayer-provider/build/libs/vaplayer-provider-<version>.jar
 ```
 
 ### Build all plugins at once
@@ -204,7 +204,7 @@ The workflow will:
 1. Build the JAR locally.
 2. Copy it to your device or emulator:
    ```bash
-   adb push plugins/netflix-provider/build/libs/netflix-provider-1.0.0.jar \
+   adb push plugins/vaplayer-provider/build/libs/vaplayer-provider-1.0.0.jar \
        /sdcard/Android/data/com.vigneshpai.jarvis/files/plugins/
    ```
 3. In Jarvis, go to **Settings → Plugins → Load from file** and select the JAR.
@@ -212,7 +212,7 @@ The workflow will:
 ### Validate the manifest locally
 
 ```bash
-./scripts/generate-manifest.sh netflix 1.0.0 plugins/netflix-provider/build/libs/netflix-provider-1.0.0.jar
+./scripts/generate-manifest.sh vaplayer 1.0.0 plugins/vaplayer-provider/build/libs/vaplayer-provider-1.0.0.jar
 cat public/plugins.json
 ```
 

@@ -14,7 +14,6 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.int
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -144,16 +143,27 @@ class VaPlayerProvider : Provider {
         val (mediaType, tmdbId) = parseMediaId(id) ?: return@withContext null
 
         if (mediaType == "movie") {
+            val apiUrl = "$VA_PLAYER_API?tmdb=$tmdbId&type=movie"
+            val data = fetchVaPlayerData(apiUrl)
+            val title = data?.get("title")?.jsonPrimitive?.contentOrNull
+                ?: data?.get("file_name")?.jsonPrimitive?.contentOrNull
+                ?: id
             MediaDetails(
                 id = id,
-                title = tmdbId,   // Caller typically has the title from search already
+                title = title,
                 type = ContentType.MOVIE,
             )
         } else {
+            // Fetch title from season 1 episode 1 probe, which also starts discovery
+            val probeUrl = "$VA_PLAYER_API?tmdb=$tmdbId&type=tv&season=1&episode=1"
+            val probeData = fetchVaPlayerData(probeUrl)
+            val title = probeData?.get("title")?.jsonPrimitive?.contentOrNull
+                ?: probeData?.get("file_name")?.jsonPrimitive?.contentOrNull
+                ?: id
             val episodes = discoverEpisodes(tmdbId)
             MediaDetails(
                 id = id,
-                title = tmdbId,
+                title = title,
                 type = ContentType.SERIES,
                 episodes = episodes,
             )
