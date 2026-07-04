@@ -18,7 +18,7 @@ tasks.register("buildAllPlugins") {
     group = "jarvis"
     description = "Build all provider plugin JARs"
     dependsOn(
-        ":plugins:netflix-provider:shadowJar",
         ":plugins:hulu-provider:shadowJar",
+        ":plugins:vaplayer-provider:shadowJar",
     )
 }

@@ -1,5 +1,5 @@
 /**
- * Build script for the netflix-provider plugin module.
+ * Build script for the vaplayer-provider plugin module.
  *
  * Produces a fat (shadow) JAR with the Plugin-Entry-Point manifest attribute
  * so the Jarvis runtime can discover the entry-point class automatically.
@@ -27,12 +27,12 @@ java {
 }
 
 tasks.shadowJar {
-    archiveBaseName.set("netflix-provider")
+    archiveBaseName.set("vaplayer-provider")
     archiveClassifier.set("")
     manifest {
         attributes(
-            "Plugin-Entry-Point" to "com.vigneshpai.jarvis.provider.netflix.NetflixProviderPlugin",
-            "Plugin-Id"          to "provider.netflix",
+            "Plugin-Entry-Point" to "com.vigneshpai.jarvis.provider.vaplayer.VaPlayerProviderPlugin",
+            "Plugin-Id"          to "provider.vaplayer",
             "Plugin-Version"     to project.version,
             "Plugin-Min-Api"     to 1,
             "Plugin-Max-Api"     to 1,

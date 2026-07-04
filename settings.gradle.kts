@@ -17,5 +17,5 @@ dependencyResolutionManagement {
 rootProject.name = "JarvisProvider"
 
 include(":plugins:provider-common")
-include(":plugins:netflix-provider")
 include(":plugins:hulu-provider")
+include(":plugins:vaplayer-provider")
