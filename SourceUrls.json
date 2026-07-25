@@ -92,13 +92,13 @@
     },
     {
       "server": "MoviesDrive",
-      "url": "https://new4.moviesdrives.my",
+      "url": "https://new6.moviesdrives.my",
       "enabled": true,
       "type": "movie"
     },
     {
       "server": "HDhub4u",
-      "url": "https://new2.hdhub4u.cl",
+      "url": "https://new3.hdhub4u.cl",
       "enabled": true,
       "type": "movie"
     },
@@ -110,7 +110,7 @@
     },
     {
       "server": "Movies4u",
-      "url": "https://new2.movies4u.finance",
+      "url": "https://new1.movies4u.clinic",
       "enabled": true,
       "type": "all"
     },
@@ -230,13 +230,13 @@
     },
     {
       "server": "RogMovies",
-      "url": "https://rogmovies.cv",
+      "url": "https://rogmovies.rest",
       "enabled": true,
       "type": "movie"
     },
     {
       "server": "Filmyfiy",
-      "url": "https://filmyfly.cafe",
+      "url": "https://filmyfly.fail",
       "enabled": true,
       "type": "movie"
     },
@@ -272,7 +272,7 @@
     },
     {
       "server": "UHDMovies",
-      "url": "https://uhdmovies.food",
+      "url": "https://uhdmovies.casa",
       "enabled": true,
       "type": "all"
     },
